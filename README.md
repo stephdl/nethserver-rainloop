@@ -1,1 +1,1 @@
-nethserver-awstats is a contrib for nethserver
+# nethserver-template
