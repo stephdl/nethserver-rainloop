@@ -1,0 +1,11 @@
+#
+# 50rainloop
+#
+{
+$OUT .= "   RewriteEngine On\n";
+$OUT .= "   RewriteRule ^/rainloop(/.*)?\$     https://%{HTTP_HOST}/rainloop\$1 [R=301,L]\n";
+if (exists $rainloop{'URL'})
+    {
+    $OUT .= "     RewriteRule ^/$rainloop{'URL'}(/.*)?\$   https://%{HTTP_HOST}/$rainloop{'URL'}\$1 [R=301,L]\n";
+    }
+}

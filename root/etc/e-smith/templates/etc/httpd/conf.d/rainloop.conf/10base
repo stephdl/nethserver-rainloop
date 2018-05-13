@@ -1,0 +1,68 @@
+{
+
+if (($rainloop{'status'} || 'disabled') eq 'enabled'){
+    my $allow = (($rainloop{'access'} || 'private') eq 'public') ? 'all granted':"ip $localAccess";
+    my $domain = $rainloop{'DomainName'} || '';
+    my $cert = $pki{'CrtFile'} || '/etc/pki/tls/certs/NSRV.crt';
+    my $key = $pki{'KeyFile'} || '/etc/pki/tls/private/NSRV.key';
+
+if ( $domain eq '' ) {
+$OUT .= "Alias /rainloop /usr/share/rainloop";
+
+if (exists $rainloop{'URL'})
+    {
+        $OUT .= "Alias /$rainloop{'URL'} /usr/share/rainloop";
+    }
+}
+
+elsif ($domain) {
+    $OUT .=<<"EOF";
+
+<VirtualHost *:80>
+    ServerName $domain
+    DocumentRoot  /usr/share/rainloop/
+    Redirect permanent / https://$domain/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName $domain
+    SSLEngine on
+    SSLCertificateFile "$cert"
+    SSLCertificateKeyFile "$key"
+    DocumentRoot  /usr/share/rainloop/
+EOF
+}
+
+    $OUT .=<<"EOF";
+
+<Directory /usr/share/rainloop>
+    SSLRequireSSL on
+    AllowOverride None
+    Require $allow
+    php_admin_value post_max_size 25M
+    php_admin_value upload_max_filesize 25M
+</Directory>
+
+## no access to the data directory
+<Directory /usr/share/rainloop/data>
+ Require all denied
+</Directory>
+
+EOF
+$OUT .= "</VirtualHost>" if ($domain);
+
+
+}
+else {
+    $OUT .=<<'EOF';
+
+# rainloop is disabled
+# You can enable it with
+# db configuration setprop rainloop status enabled
+# signal-event nethserver-rainloop-update
+
+EOF
+}
+
+}
+
