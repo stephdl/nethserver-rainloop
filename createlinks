@@ -15,10 +15,13 @@ event_actions($event, qw(
     nethserver-rainloop-create-settings 10
     nethserver-rainloop-mysql-setup 20
 ));
+
 #expand templates following one event
 event_templates($event, qw(
-                /etc/httpd/conf.d/rainloop.conf
+        /etc/httpd/conf.d/rainloop.conf
+        /etc/httpd/conf.d/default-virtualhost.inc
 ));
+
 #restart services following one event
 event_services($event, qw(
                httpd reload
