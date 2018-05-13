@@ -3,7 +3,7 @@
 # Modify by sed the settings
 
 PASSWORD=$(cat /var/lib/nethserver/secrets/rainloop)
-
+sed -i 's|^auth_logging = Off|auth_logging = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 sed -i 's|^enable = Off|enable = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 sed -i 's|^allow_sync = Off|allow_sync = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 sed -i 's|^type = "sqlite"|type = "mysql"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
