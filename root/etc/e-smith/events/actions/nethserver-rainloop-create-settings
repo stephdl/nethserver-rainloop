@@ -1,10 +1,14 @@
 #!/usr/bin/bash
 
-
 # Modify by sed the settings
+
+PASSWORD=$(cat /var/lib/nethserver/secrets/rainloop)
+
+sed -i 's|^enable = Off|enable = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+sed -i 's|^allow_sync = Off|allow_sync = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 sed -i 's|^type = "sqlite"|type = "mysql"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 sed -i 's|^pdo_user = "root"|pdo_user = "rainloop"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-sed -i 's|^pdo_password = ""|pdo_password = "rainloop"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+sed -i "s|^pdo_password = \"\"|pdo_password = \"$PASSWORD\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 
 DOMAIN=$(config get DomainName)
 sed -i "s|^default_domain = \"\"|default_domain = \"$DOMAIN\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
@@ -15,3 +19,4 @@ rm -f /usr/share/rainloop/data/_data_/_default_/domains/DEFAULTDOMAIN.ini
 
 # set ownership to apache
 chown -R apache:apache /usr/share/rainloop/data/
+
