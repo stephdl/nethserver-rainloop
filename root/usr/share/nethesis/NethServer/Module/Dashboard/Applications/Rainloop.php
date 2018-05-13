@@ -33,7 +33,7 @@ class Rainloop extends \Nethgui\Module\AbstractModule implements \NethServer\Mod
     {
          $host = explode(':',$_SERVER['HTTP_HOST']);
          return array(
-            'url' => "https://".$host[0]."/Rainloop/"
+            'url' => "https://".$host[0]."/rainloop/"
          );
     }
 }
