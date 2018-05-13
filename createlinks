@@ -12,7 +12,7 @@ my $event = 'nethserver-rainloop-update';
 event_actions ( $event, 'initialize-default-databases' => '00');
 
 event_actions($event, qw(
-    nethserver-rainloop-create-settings.conf 10
+    nethserver-rainloop-create-settings 10
     nethserver-rainloop-mysql-setup 20
 ));
 #expand templates following one event
