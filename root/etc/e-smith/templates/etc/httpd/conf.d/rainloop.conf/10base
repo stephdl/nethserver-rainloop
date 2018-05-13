@@ -7,7 +7,7 @@ if (($rainloop{'status'} || 'disabled') eq 'enabled'){
     my $key = $pki{'KeyFile'} || '/etc/pki/tls/private/NSRV.key';
 
 if ( $domain eq '' ) {
-$OUT .= "Alias /rainloop /usr/share/rainloop";
+$OUT .= "Alias /rainloop /usr/share/rainloop\n";
 
 if (exists $rainloop{'URL'})
     {
