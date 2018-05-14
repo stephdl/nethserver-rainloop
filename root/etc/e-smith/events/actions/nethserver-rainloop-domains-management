@@ -3,7 +3,7 @@ EVENT=$1
 DOMAIN=$2
 
 if [[ $EVENT == 'domain-create' ]]; then
-    cp -f  /etc/e-smith/templates/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
+    cp -f  /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
 
 elif [[ $EVENT == 'domain-delete' ]]; then
     rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
