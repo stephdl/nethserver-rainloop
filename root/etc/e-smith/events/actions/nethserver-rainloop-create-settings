@@ -13,10 +13,13 @@ sed -i "s|^pdo_password = \"\"|pdo_password = \"$PASSWORD\"|" /usr/share/rainloo
 DOMAIN=$(config get DomainName)
 sed -i "s|^default_domain = \"\"|default_domain = \"$DOMAIN\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 
-# Rename the default domain file to the relevant mail domain and remove it
-mv /usr/share/rainloop/data/_data_/_default_/domains/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/$DOMAIN.ini > /dev/null 2>&1
-rm -f /usr/share/rainloop/data/_data_/_default_/domains/DEFAULTDOMAIN.ini
+# find all available domains
+DOMAINS=$(db domains keys)
+for domain in ${DOMAINS[@]}; do
+    cp -f   /etc/e-smith/templates/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${domain}.ini > /dev/null 2>&1
+done
 
 # set ownership to apache
 chown -R apache:apache /usr/share/rainloop/data/
+
 

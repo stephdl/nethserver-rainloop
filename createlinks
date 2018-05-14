@@ -26,3 +26,19 @@ event_templates($event, qw(
 event_services($event, qw(
                httpd reload
 ));
+
+# trusted-network event
+$event = 'trusted-networks-modify';
+event_templates($event, qw(
+    ¦   /etc/httpd/conf.d/rainloop.conf
+    ¦   /etc/httpd/conf.d/default-virtualhost.inc
+));
+
+event_services($event, qw(
+    ¦   ¦   ¦  httpd reload
+));
+
+# domain-create event
+for $event (qw(domain-create domain-delete)) {
+    event_actions ($event, 'nethserver-rainloop-domains-management' => '10');
+}

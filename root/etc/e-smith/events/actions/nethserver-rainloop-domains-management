@@ -1,0 +1,12 @@
+#/usr/bin/bash
+EVENT=$1
+DOMAIN=$2
+
+if [[ $EVENT == 'domain-create' ]]; then
+    cp -f  /etc/e-smith/templates/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
+
+elif [[ $EVENT == 'domain-delete' ]]; then
+    rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
+fi
+
+chown apache:apache -R /usr/share/rainloop/data/
