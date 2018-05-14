@@ -13,10 +13,13 @@ sed -i "s|^pdo_password = \"\"|pdo_password = \"$PASSWORD\"|" /usr/share/rainloo
 DOMAIN=$(config get DomainName)
 sed -i "s|^default_domain = \"\"|default_domain = \"$DOMAIN\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 
-# find all available domains
+# find all available domains with type LocalDelivery
 DOMAINS=$(db domains keys)
 for domain in ${DOMAINS[@]}; do
-    cp -f   /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${domain}.ini > /dev/null 2>&1
+    TRANSPORTTYPE=$(db domains getprop ${domain} TransportType)
+    if [[ $TRANSPORTTYPE == 'LocalDelivery' ]]; then
+        cp -f   /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${domain}.ini > /dev/null 2>&1
+    fi
 done
 
 # set ownership to apache
