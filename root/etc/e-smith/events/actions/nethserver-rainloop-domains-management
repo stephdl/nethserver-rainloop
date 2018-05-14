@@ -1,12 +1,13 @@
 #/usr/bin/bash
 EVENT=$1
 DOMAIN=$2
+TRANSPORTTYPE=$(db domains getprop ${DOMAIN} TransportType)
 
-if [[ $EVENT == 'domain-create' ]]; then
-    cp -f  /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
+if [[ $EVENT == 'domain-create' && $TRANSPORTTYPE == 'LocalDelivery' ]]; then
+    cp -f  /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
 
 elif [[ $EVENT == 'domain-delete' ]]; then
-    rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini > /dev/null 2>&1
+    rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
 fi
 
 chown apache:apache -R /usr/share/rainloop/data/
