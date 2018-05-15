@@ -38,7 +38,7 @@ event_services($event, qw(
     ¦   ¦   ¦  httpd reload
 ));
 
-# domain-create event
-for $event (qw(domain-create domain-delete)) {
+# domain-* event
+for $event (qw(domain-create domain-delete domain-modify)) {
     event_actions ($event, 'nethserver-rainloop-domains-management' => '10');
 }

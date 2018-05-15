@@ -8,6 +8,9 @@ if [[ $EVENT == 'domain-create' && $TRANSPORTTYPE == 'LocalDelivery' ]]; then
 
 elif [[ $EVENT == 'domain-delete' ]]; then
     rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
+
+elif if [[ $EVENT == 'domain-modify' && $TRANSPORTTYPE == 'Relay' ]]; then
+    rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
 fi
 
 chown apache:apache -R /usr/share/rainloop/data/
