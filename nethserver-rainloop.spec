@@ -10,6 +10,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Requires: rainloop
 Requires: nethserver-mail-server
+Requires: nethserver-mysql
 BuildRequires: nethserver-devtools
 BuildArch: noarch
 
