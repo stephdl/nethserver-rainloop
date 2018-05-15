@@ -5,15 +5,17 @@ TRANSPORTTYPE=$(/usr/sbin/e-smith/db domains getprop ${DOMAIN} TransportType)
 
 if [[ $EVENT == 'domain-create' && $TRANSPORTTYPE == 'LocalDelivery' ]]; then
     /usr/bin/cp -f  /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
+    /usr/bin/chown apache:apache -R /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
 
-elif [[ $EVENT == 'domain-delete' ]]; then
-    /usr/bin/rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
+elif [[ $EVENT == 'domain-modify' && $TRANSPORTTYPE == 'LocalDelivery' ]]; then
+    /usr/bin/cp -f  /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
+    /usr/bin/chown apache:apache -R /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
 
 elif [[ $EVENT == 'domain-modify' && $TRANSPORTTYPE == 'Relay' ]]; then
     /usr/bin/rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
 
-elif [[ $EVENT == 'domain-modify' && $TRANSPORTTYPE == 'LocalDelivery' ]]; then
-    /usr/bin/cp -f  /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
+elif [[ $EVENT == 'domain-delete' ]]; then
+    /usr/bin/rm -f /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
+
 fi
 
-/usr/bin/chown apache:apache -R /usr/share/rainloop/data/_data_/_default_/domains/${DOMAIN}.ini
