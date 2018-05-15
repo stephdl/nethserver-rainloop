@@ -1,28 +1,26 @@
 #!/usr/bin/bash
 
 # Modify by sed the settings
+PASSWORD=$(/usr/bin/cat /var/lib/nethserver/secrets/rainloop)
+/usr/bin/sed -i 's|^auth_logging = Off|auth_logging = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+/usr/bin/sed -i 's|^enable = Off|enable = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+/usr/bin/sed -i 's|^allow_sync = Off|allow_sync = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+/usr/bin/sed -i 's|^type = "sqlite"|type = "mysql"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+/usr/bin/sed -i 's|^pdo_user = "root"|pdo_user = "rainloop"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+/usr/bin/sed -i "s|^pdo_password = \"\"|pdo_password = \"$PASSWORD\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 
-PASSWORD=$(cat /var/lib/nethserver/secrets/rainloop)
-sed -i 's|^auth_logging = Off|auth_logging = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-sed -i 's|^enable = Off|enable = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-sed -i 's|^allow_sync = Off|allow_sync = On|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-sed -i 's|^type = "sqlite"|type = "mysql"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-sed -i 's|^pdo_user = "root"|pdo_user = "rainloop"|' /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-sed -i "s|^pdo_password = \"\"|pdo_password = \"$PASSWORD\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
-
-DOMAIN=$(config get DomainName)
-sed -i "s|^default_domain = \"\"|default_domain = \"$DOMAIN\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
+DOMAIN=$(/usr/sbin/e-smith/db configuration get DomainName)
+/usr/bin/sed -i "s|^default_domain = \"\"|default_domain = \"$DOMAIN\"|" /usr/share/rainloop/data/_data_/_default_/configs/application.ini
 
 # find all available domains with type LocalDelivery
-DOMAINS=$(db domains keys)
+
+DOMAINS=$(/usr/sbin/e-smith/db domains keys)
 for domain in ${DOMAINS[@]}; do
-    TRANSPORTTYPE=$(db domains getprop ${domain} TransportType)
+    TRANSPORTTYPE=$(/usr/sbin/e-smith/db domains getprop $domain TransportType)
     if [[ $TRANSPORTTYPE == 'LocalDelivery' ]]; then
-        cp -f   /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${domain}.ini > /dev/null 2>&1
+        /usr/bin/cp -f   /etc/e-smith/templates/rainloop/DEFAULTDOMAIN.ini /usr/share/rainloop/data/_data_/_default_/domains/${domain}.ini > /dev/null 2>&1
     fi
 done
 
 # set ownership to apache
-chown -R apache:apache /usr/share/rainloop/data/
-
-
+/usr/bin/chown -R apache:apache /usr/share/rainloop/data/
