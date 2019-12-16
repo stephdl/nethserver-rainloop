@@ -32,10 +32,21 @@ Simple, modern & fast web-based email client
 %build
 %{makedocs}
 perl createlinks
+sed -i 's/_RELEASE_/%{version}/' %{name}.json
 
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+
+mkdir -p %{buildroot}/usr/share/cockpit/%{name}/
+mkdir -p %{buildroot}/usr/share/cockpit/nethserver/applications/
+mkdir -p %{buildroot}/usr/libexec/nethserver/api/%{name}/
+cp -a manifest.json %{buildroot}/usr/share/cockpit/%{name}/
+cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
+cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
+cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
+
+
 rm -f %{name}-%{version}-%{release}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
 > %{name}-%{version}-%{release}-filelist
