@@ -1,7 +1,7 @@
 Summary: nethserver-rainloop  is a module for rainloop
 %define name nethserver-rainloop
 Name: %{name}
-%define version 0.1.1
+%define version 1.0.0
 %define release 1
 Version: %{version}
 Release: %{release}%{?dist}
@@ -20,6 +20,9 @@ Simple, modern & fast web-based email client
 
 
 %changelog
+* Mon Dec 16 2019 stephane de Labrusse <stephdl@de-labrusse.fr>
+- Added to the cockpit application
+
 * Sat Dec 15 2018 stephane de Labrusse <stephdl@de-labrusse.fr>
 - Force SMTP authentification
 
