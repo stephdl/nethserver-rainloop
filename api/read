@@ -24,5 +24,12 @@ protocol=$(jq -r .location.protocol <<<"$input")
 host=$(jq -r .location.hostname <<<"$input")
 
 if [[ $action == "app-info" ]]; then
-    printf '{"url":"%s"}' "${protocol}//${host}/rainloop"
-fi 
+      if [[ $(/sbin/e-smith/config getprop rainloop status) == "enabled" ]]; then
+          if [[ $(/sbin/e-smith/config getprop rainloop DomainName) != '' ]]; then
+            vhost=$(/sbin/e-smith/config getprop rainloop DomainName)
+            printf '{"url":"%s"}' "https://${vhost}"
+          else
+            printf '{"url":"%s"}' "${protocol}//${host}/rainloop"
+          fi
+      fi
+fi
