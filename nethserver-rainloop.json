@@ -1,8 +1,8 @@
 {
   "id": "nethserver-rainloop",
   "name": "rainloop",
-  "summary": "Provides a highly versatile Open Source webmail software",
-  "description": "Provides a highly versatile Open Source webmail software",
+  "summary": "Provides a Open Source webmail software",
+  "description": "Provides a Open Source webmail software",
   "url": "",
   "homepage": "https://github.com/stephdl/nethserver-rainloop",
   "provides": ["nethserver-rainloop"],
