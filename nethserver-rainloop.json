@@ -1,0 +1,26 @@
+{
+  "id": "nethserver-rainloop",
+  "name": "rainloop",
+  "summary": "Provides a Open Source webmail software",
+  "description": "Provides a Open Source webmail software",
+  "url": "",
+  "homepage": "https://github.com/stephdl/nethserver-rainloop",
+  "provides": ["nethserver-rainloop"],
+  "release": {
+    "version": "_RELEASE_"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/stephdl/dev/issues"
+  },
+  "author": {
+    "name": "Stephane de Labrusse",
+    "url": "https://github.com/stephdl/nethserver-rainloop",
+    "email": "stephdl@de-labrusse.fr"
+  },
+  "infoapi": {
+    "path": "nethserver-rainloop/read"
+  },
+  "icon": "logo.png",
+  "external": true
+}
