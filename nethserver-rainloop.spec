@@ -18,20 +18,6 @@ BuildArch: noarch
 
 Simple, modern & fast web-based email client
 
-
-%changelog
-* Thu Dec 17 2019 stephane de Labrusse <stephdl@de-labrusse.fr>
-- Link to virtualhosts inside cockpit application
-
-* Mon Dec 16 2019 stephane de Labrusse <stephdl@de-labrusse.fr>
-- Added to the cockpit application
-
-* Sat Dec 15 2018 stephane de Labrusse <stephdl@de-labrusse.fr>
-- Force SMTP authentification
-
-* Sun May 13 2018 stephane de Labrusse <stephdl@de-labrusse.fr>
-- initial
-
 %prep
 %setup
 
@@ -68,3 +54,17 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 %doc COPYING
 %config(noreplace) %{_datadir}/rainloop/data/_data_/_default_/configs/application.ini
+
+
+%changelog
+* Thu Dec 17 2019 stephane de Labrusse <stephdl@de-labrusse.fr>
+- Link to virtualhosts inside cockpit application
+
+* Mon Dec 16 2019 stephane de Labrusse <stephdl@de-labrusse.fr>
+- Added to the cockpit application
+
+* Sat Dec 15 2018 stephane de Labrusse <stephdl@de-labrusse.fr>
+- Force SMTP authentification
+
+* Sun May 13 2018 stephane de Labrusse <stephdl@de-labrusse.fr>
+- initial
