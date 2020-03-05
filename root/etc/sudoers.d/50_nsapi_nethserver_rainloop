@@ -1,0 +1,7 @@
+#
+# nsapi_nethserver_rainloop
+#
+Cmnd_Alias NSAPI_NETHSERVER_RAINLOOP = \
+     /usr/libexec/nethserver/api/nethserver-rainloop/read 
+
+Defaults!NSAPI_NETHSERVER_RAINLOOP !requiretty
