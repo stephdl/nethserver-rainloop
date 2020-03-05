@@ -1,7 +1,7 @@
 Summary: nethserver-rainloop  is a module for rainloop
 %define name nethserver-rainloop
 Name: %{name}
-%define version 1.0.1
+%define version 1.0.2
 %define release 1
 Version: %{version}
 Release: %{release}%{?dist}
@@ -54,9 +54,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_nseventsdir}/%{name}-update
 %doc COPYING
 %config(noreplace) %{_datadir}/rainloop/data/_data_/_default_/configs/application.ini
+%attr(0440,root,root) /etc/sudoers.d/50_nsapi_nethserver_rainloop
 
 
 %changelog
+* Thu Mar 05 2020  stephane de Labrusse <stephdl@de-labrusse.fr> 
+- Fix bad sudoers permission
+
 * Thu Dec 17 2019 stephane de Labrusse <stephdl@de-labrusse.fr>
 - Link to virtualhosts inside cockpit application
 
