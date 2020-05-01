@@ -1,7 +1,7 @@
 Summary: nethserver-rainloop  is a module for rainloop
 %define name nethserver-rainloop
 Name: %{name}
-%define version 1.0.2
+%define version 1.0.3
 %define release 1
 Version: %{version}
 Release: %{release}%{?dist}
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri May 01 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 
+- Handle vhost in nethgui application 
+
 * Thu Mar 05 2020  stephane de Labrusse <stephdl@de-labrusse.fr> 
 - Fix bad sudoers permission
 
