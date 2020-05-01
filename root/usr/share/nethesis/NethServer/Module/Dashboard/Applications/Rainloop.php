@@ -31,10 +31,16 @@ class Rainloop extends \Nethgui\Module\AbstractModule implements \NethServer\Mod
     }
     public function getInfo()
     {
-         $host = explode(':',$_SERVER['HTTP_HOST']);
-         return array(
-            'url' => "https://".$host[0]."/rainloop/"
-         );
+        $vhost = $this->getPlatform()->getDatabase('configuration')->getProp('rainloop','DomainName');
+        if ($vhost) {
+            return array(
+            'url' => "https://".$vhost
+            );
+        } else {
+            $host = explode(':',$_SERVER['HTTP_HOST']);
+            return array(
+                'url' => "https://".$host[0]."/rainloop/"
+            );
+        }
     }
 }
-
