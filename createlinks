@@ -22,12 +22,12 @@ event_services($event, qw(
 # trusted-network event
 $event = 'trusted-networks-modify';
 event_templates($event, qw(
-    ¦   /etc/httpd/conf.d/rainloop.conf
-    ¦   /etc/httpd/conf.d/default-virtualhost.inc
+    /etc/httpd/conf.d/rainloop.conf
+    /etc/httpd/conf.d/default-virtualhost.inc
 ));
 
 event_services($event, qw(
-    ¦   ¦   ¦  httpd reload
+    httpd reload
 ));
 
 # domain-* event
