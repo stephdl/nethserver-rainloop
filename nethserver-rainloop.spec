@@ -45,6 +45,8 @@ rm -f %{name}-%{version}-%{release}-filelist
 
 %post
 %postun
+/usr/bin/rm -f /etc/httpd/conf.d/rainloop.conf
+/usr/bin/systemctl reload httpd
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
