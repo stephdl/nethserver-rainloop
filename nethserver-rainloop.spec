@@ -1,7 +1,7 @@
 Summary: nethserver-rainloop  is a module for rainloop
 %define name nethserver-rainloop
 Name: %{name}
-%define version 1.0.5
+%define version 1.0.6
 %define release 2
 Version: %{version}
 Release: %{release}%{?dist}
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Sep 30 2021 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.6
+- Fix bad ports and protocols for mail server (sieve, imap, smtp)
+
 * Sat Jul 04 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.5
 - Remove http templates after rpm removal
 
